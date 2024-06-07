@@ -1,0 +1,129 @@
+/* Reset some default browser styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+  background-color: #f9f9f9;
+  color: #333;
+}
+
+a {
+  text-decoration: none;
+}
+
+/* Layout styles */
+header,
+footer {
+  background-color: #333;
+  color: #fff;
+  padding: 1rem;
+  text-align: center;
+}
+
+header h1,
+footer p {
+  font-size: 3rem;
+  font-family: "Arial Narrow Bold", sans-serif;
+  margin: 0;
+  color: white;
+}
+
+footer p {
+  font-size: 1rem;
+}
+
+/* Main content styles */
+main {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 1rem;
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
+
+ul {
+  list-style-type: none;
+  margin-top: 1em;
+}
+
+li {
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+}
+
+h2 {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+p {
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.likes,
+.category {
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.likes {
+  margin-top: 0.5rem;
+}
+
+.category {
+  font-style: italic;
+  margin-top: 0.5rem;
+}
+
+.dateCreated {
+  font-size: 0.7em;
+  font-style: italic;
+  margin-top: 0.5rem;
+}
+
+.postFooter {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 2em;
+  border-bottom: 1px solid #eee;
+  padding: 1em 0em;
+}
+
+/* Button styles */
+.new-post-button {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #fa93c0;
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.8rem;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s;
+}
+
+.new-post-button:hover {
+  background-color: #d57392;
+}
+
+/* Responsive design */
+@media (max-width: 600px) {
+  main {
+    margin: 1rem;
+    padding: 1rem;
+  }
+}

@@ -1,0 +1,17 @@
+<%- include("./layout/header") %>
+<main>
+    <ul>
+        <% blogs.forEach(blog => { %>
+            <li>
+                <h2><%= blog.title %></h2>
+                <p><%= blog.post_text %></p>
+            </li>
+            <div class="postFooter">
+            <p class="likes"><%= blog.likes %> ♥</p>
+            <p class="dateCreated"><%= blog.date_created %></p>
+            <p class="category"><%= blog.category %></p></div>
+        <% }) %>
+    </ul>
+    <button class="new-post-button" onclick="location.href='/pages/newBlogPost.html'">+</button>
+</main>
+<%- include("./layout/footer") %>
