@@ -1,130 +1,92 @@
-import express from "express";
 import { Router } from "express";
-import fs from "fs";
+import BlogModel from "../models/blogModel.js";
 
 const router = Router();
-
-router.use(express.json());
-
-const blogPosts = JSON.parse(fs.readFileSync("./data/blogPosts.json"));
 
 //* API part
 
 //get all ("/api/v1/blogs")
-router.get("/", (req, res) => {
-  const { id, category } = req.query;
-  const parsedId = parseInt(id);
+router.get("/", async (req, res) => {
+  try {
+    const { category } = req.query;
 
-  //if no querys, return whole json-file
-  if (!id && !category) return res.status(200).json(blogPosts);
-  if (id && category)
-    return res
-      .status(400)
-      .send("You can not combine a search for category with ID");
-  if (id) {
-    if (isNaN(parsedId)) return res.status(400).send("invalid ID");
-    if (id) {
-      const findBlog = blogPosts.find((blog) => blog.id == parsedId);
-      if (!findBlog) return res.status(400).send("Id not found");
-      return res.status(200).json(findBlog);
-    }
-  }
-  if (category) {
-    const findBlogsCategory = blogPosts.filter(
-      (blog) => blog.category.toLowerCase() == category.toLowerCase()
-    );
-    if (findBlogsCategory.length == 0)
-      return res.status(400).send("Category not found");
-    return res.status(200).json(findBlogsCategory);
+    const blogs = await BlogModel.find();
+
+    if (!category) return res.status(200).json(blogs);
+
+    const blogCategory = await BlogModel.find({ category: category });
+
+    return res.status(200).json(blogCategory);
+  } catch (err) {
+    res.status(500).send(err);
   }
 });
 
-router.post("/", (req, res) => {
-  const { body } = req;
-  const newId = blogPosts[blogPosts.length - 1].id + 1 || 1;
-  const dateCreated = new Date().toLocaleString();
-  const commentsArray = [];
-  const likesCount = 0;
-  const newBlog = {
-    id: newId,
-    date_created: dateCreated,
-    comments: commentsArray,
-    likes: likesCount,
-    ...body,
-  };
+router.get("/:id", async (req, res) => {
+  try {
+    const id = req.params.id;
 
-  blogPosts.push(newBlog);
-
-  fs.writeFile("./data/blogPosts.json", JSON.stringify(blogPosts), (err) => {
-    if (err) return res.status(500).send("something went wrong", err.message);
-
-    res.status(201).json(newBlog);
-  });
+    let blog = await BlogModel.findById(id);
+    if (!blog) throw new Error("Wrong ID");
+    res.status(200).json(blog);
+  } catch (err) {
+    res.status(500).send(`Something went wrong: ${err.message}`);
+  }
 });
 
-router.put("", (req, res) => {
-  const {
-    body,
-    query: { id },
-  } = req;
-  const parsedId = parseInt(id);
+router.post("/", async (req, res) => {
+  try {
+    const addNewBlog = await BlogModel.create(req.body);
 
-  if (isNaN(parsedId)) return res.status(400).send(`Invalid id:${id}`);
-
-  const blogToUpdateIndex = blogPosts.findIndex((blog) => blog.id === parsedId);
-  console.log(blogToUpdateIndex);
-
-  if (blogToUpdateIndex === -1)
-    return res.status(404).send(`No blog with id:${id} found`);
-
-  blogPosts[blogToUpdateIndex] = { id: parsedId, ...body };
-
-  fs.writeFile("./data/blogPosts.json", JSON.stringify(blogPosts), (err) => {
-    if (err) return res.status(500).send("something went wrong", err.message);
-
-    res.status(201).json(blogPosts[blogToUpdateIndex]);
-  });
+    res.status(201).json(addNewBlog);
+  } catch (err) {
+    res.status(500).send(err);
+  }
 });
 
-router.patch("", (req, res) => {
-  const {
-    body,
-    query: { id },
-  } = req;
-  const parsedId = parseInt(id);
+router.put("/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const blog = await BlogModel.findById(id);
 
-  if (isNaN(parsedId)) return res.status(400).send(`Invalid id:${id}`);
+    blog.profile_image = req.body.profile_image;
+    blog.name = req.body.name;
+    blog.post_text = req.body.post_text;
+    blog.post_image = req.body.post_image;
+    blog.comments = req.body.comments;
+    blog.likes = req.body.likes;
+    blog.category = req.body.category;
+    blog.title = req.body.title;
 
-  const blogToUpdateIndex = blogPosts.findIndex((blog) => blog.id === parsedId);
-  console.log(blogToUpdateIndex);
-
-  if (blogToUpdateIndex === -1)
-    return res.status(404).send(`No blog with id:${id} found`);
-
-  blogPosts[blogToUpdateIndex] = { ...blogPosts[blogToUpdateIndex], ...body };
-
-  fs.writeFile("./data/blogPosts.json", JSON.stringify(blogPosts), (err) => {
-    if (err) return res.status(500).send("something went wrong", err.message);
-
-    res.status(201).json(blogPosts[blogToUpdateIndex]);
-  });
+    const updateBlog = await blog.save();
+    res.status(200).json(updateBlog);
+  } catch (err) {
+    res.status(500).send(`Something went wrong: ${err.message}`);
+  }
 });
 
-router.delete("/", (req, res) => {
-  const { id } = req.query;
-  const parsedId = parseInt(id);
-  if (isNaN(parsedId)) return res.status(400).send("invalid ID");
-  const findDeletedIndex = blogPosts.findIndex((blog) => blog.id == parsedId);
-  if (findDeletedIndex == -1)
-    return res.status(404).send(`No blog with id:${id} found`);
+router.patch("/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const blog = await BlogModel.findByIdAndUpdate(id, req.body);
 
-  blogPosts.splice(findDeletedIndex, 1);
+    if (!blog) throw new Error("Wrong ID");
+    res.status(200).json(blog);
+  } catch (err) {
+    res.status(500).send(`Something went wrong: ${err.message}`);
+  }
+});
 
-  fs.writeFile("./data/blogPosts.json", JSON.stringify(blogPosts), (err) => {
-    if (err) return res.status(500).send("something went wrong", err.message);
+router.delete("/:id", async (req, res) => {
+  const id = req.params.id;
+  try {
+    const blog = await BlogModel.findByIdAndDelete(id);
 
-    res.status(201).json(blogPosts);
-  });
+    if (!blog) throw new Error("Wrong ID");
+    res.status(204).send();
+  } catch (err) {
+    res.status(500).send(`Something went Wrong: ${err.message}`);
+  }
 });
 
 export default router;

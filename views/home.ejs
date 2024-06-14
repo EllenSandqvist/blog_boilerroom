@@ -2,16 +2,20 @@
 <main>
     <ul>
         <% blogs.forEach(blog => { %>
+            
             <li>
-                <h2><%= blog.title %></h2>
+                <div class="postContainer">
+                    <a href=" /blogs/<%=blog._id%>"> <h2><%= blog.title %></h2></a>
                 <p><%= blog.post_text %></p>
-            </li>
+            </div>
             <div class="postFooter">
-            <p class="likes"><%= blog.likes %> ♥</p>
+            <button class="likes patchButton" id="<%=blog._id%>" value="<%= blog.likes %>"><%= blog.likes %> ♥</button>
             <p class="dateCreated"><%= blog.date_created %></p>
             <p class="category"><%= blog.category %></p></div>
+            </li>
         <% }) %>
     </ul>
     <button class="new-post-button" onclick="location.href='/pages/newBlogPost.html'">+</button>
+    
 </main>
 <%- include("./layout/footer") %>

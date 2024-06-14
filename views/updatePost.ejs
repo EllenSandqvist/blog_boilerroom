@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Blog Post</title>
+    <link rel="stylesheet" href="/css/newPost.css">
+</head>
+<body>
+    <form class="updateForm" data-doc="<%= blog._id %>">
+        <h3>Update Post</h3>
+        <label for="title">Title: </label>
+        <input type="text" required name="title" id="title" value="<%= blog.title %>">
+
+        <label for="text">Text: </label>
+        <input class="textContainer" type="text" name="post_text" id="text" value="<%= blog.post_text %>">
+        
+        <label for="blogImage">Image: </label>
+        <input type="url" name="post_image" id="blogImage" value="<%= blog.post_image %>">
+
+        <label for="category">Category: </label>
+        <input type="text" required name="category" id="category" value="<%= blog.category %>">
+
+
+        <h4>Author Details</h4>
+        <label for="author">Author: </label>
+        <input type="text" name="name" id="author" required value="<%= blog.name %>">
+        <label for="profile_pic">Profile image: </label>
+        <input type="url" name="profile_image" id="profile_pic" value="<%= blog.profile_image %>">
+
+        
+        <button class="addPost" type="submit">Update Post</button>
+     </form>
+     <button title="Back to home..." class="back-button" onclick="location.href='/blogs'">←</button>
+
+
+
+     <script>
+        const form = document.querySelector(".updateForm");
+        
+        form.addEventListener('submit', (e) => { 
+          e.preventDefault(); 
+    
+          // Hämta formulärets data och lagra i ett FormData-objekt:
+          // FormData = inbyggd js klass för att skapa nyckel/värde-par från formulär
+          // key = name på fälten i formuläret
+          // value = value från formuläret
+          // e.target är här formuläret som utlöste submit-händelsen
+          const formData = new FormData(e.target);
+    
+          //skapa ett tomt objekt för att lagra data:
+          const data = {};
+          formData.forEach((value, key) => {
+            //fyller det tomma data-objektet med key/value:
+            data[key] = value;
+          });
+    
+          // Skicka PATCH-begäran med det uppdaterade data-objektet
+          fetch(`/blogs/${form.dataset.doc}`, {
+            method: 'PATCH',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data) //Konverterar data-objektet till json-sträng
+          })
+          .then(response => response.json())
+          .then(data => {
+            if(data.success){
+              window.location.href= data.redirectUrl; //använder redirectUrl från serversvaret för omdirigering
+            } else {
+              console.error('Error: ', data);
+            }
+          })
+          .catch((error) => {
+            console.error('Error: ', error);
+          })
+         })
+      </script>
+</body>
+</html>

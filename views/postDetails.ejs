@@ -1,4 +1,32 @@
 <%- include("./layout/header") %>
 <h2><%= placeholder.title %></h2>
                 <p><%= placeholder.post_text %></p>
+                <button id="deleteButton" data-doc="<%= placeholder._id %>">Delete</button>
+                <button onclick="location.href=`/blogs/edit/<%= placeholder._id %>`">Update</button>
+                
+                
+<script>
+    const deleteButton = document.getElementById("deleteButton");
+    deleteButton.addEventListener('click', (e) => { 
+        //grabbing the endpoint with help of dataset
+        const endpoint = `/blogs/${deleteButton.dataset.doc}`;
+
+        //sending the delete request to the server:
+        fetch(endpoint, {
+            method: 'DELETE'
+        })
+        //converting the server respons to js object
+        .then((response) => response.json())
+        //redirect with help of url in server respons
+        .then((data) => {
+            if(data.success){
+                window.location.href = data.redirectUrl;
+            } else {
+                console.error('Error: ', data);
+            }
+        })
+        .catch(err => console.error(err));
+        });
+    </script>
 <%- include("./layout/footer") %>
+

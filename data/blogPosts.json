@@ -1,9 +1,7 @@
 [
   {
-    "id": 1,
     "profile_image": "https://example.com/standard-profile.png",
     "name": "Alice Anderson",
-    "date_created": "2024-06-07 07:32:35",
     "post_text": "Just came back from a fantastic hiking trip in the Alps! Nature is truly breathtaking.",
     "post_image": "https://example.com/alps_hiking.png",
     "comments": ["Beautiful photos!", "I wish I could be there."],
@@ -12,10 +10,8 @@
     "title": "Hiking in the Alps"
   },
   {
-    "id": 2,
     "profile_image": "https://example.com/profile1.png",
     "name": "Bob Brown",
-    "date_created": "2024-06-07 08:15:20",
     "post_text": "Here's my latest recipe for a delicious vegan lasagna. Give it a try!",
     "post_image": null,
     "comments": ["Can't wait to try this!", "Looks yummy!", "Yippie Yohooo!!"],
@@ -24,10 +20,8 @@
     "title": "Vegan Lasagna Recipe"
   },
   {
-    "id": 3,
     "profile_image": "https://example.com/standard-profile.png",
     "name": "Cathy Clark",
-    "date_created": "2024-06-07 09:45:10",
     "post_text": "Reading this amazing book on space exploration. Highly recommend it to all space enthusiasts!",
     "post_image": null,
     "comments": ["Adding this to my reading list.", "Sounds interesting!"],
@@ -36,10 +30,8 @@
     "title": "Book Review: Space Exploration"
   },
   {
-    "id": 4,
     "profile_image": "https://example.com/profile3.png",
     "name": "David Davis",
-    "date_created": "2024-06-07 10:20:55",
     "post_text": "Check out my new artwork. I’ve been experimenting with abstract styles lately.",
     "post_image": "https://example.com/abstract_art.png",
     "comments": ["This is amazing!", "Love the colors and style."],
@@ -48,10 +40,8 @@
     "title": "New Abstract Artwork"
   },
   {
-    "id": 5,
     "profile_image": "https://example.com/standard-profile.png",
     "name": "Eva Evans",
-    "date_created": "2024-06-07 11:05:35",
     "post_text": "Just finished a marathon! Feeling exhausted but so accomplished.",
     "post_image": null,
     "comments": ["Congrats!", "You are an inspiration!"],
@@ -60,10 +50,8 @@
     "title": "Marathon Achievement"
   },
   {
-    "id": 6,
     "profile_image": "https://example.com/profile5.png",
     "name": "Frank Foster",
-    "date_created": "2024-06-07 11:50:10",
     "post_text": "A little sneak peek into my new tech project. Excited to share more soon!",
     "post_image": null,
     "comments": ["Can't wait to see it.", "Sounds exciting!"],
@@ -72,10 +60,8 @@
     "title": "Tech Project Sneak Peek"
   },
   {
-    "id": 7,
     "profile_image": "https://example.com/standard-profile.png",
     "name": "Grace Green",
-    "date_created": "2024-06-07 12:30:25",
     "post_text": "Enjoying a sunny day at the beach. Perfect way to relax.",
     "post_image": "https://example.com/beach_day.png",
     "comments": ["Wish I was there!", "Looks so peaceful."],
@@ -84,10 +70,8 @@
     "title": "Sunny Beach Day"
   },
   {
-    "id": 8,
     "profile_image": "https://example.com/profile7.png",
     "name": "Hank Harris",
-    "date_created": "2024-06-07 13:15:00",
     "post_text": "Had a great time at the tech conference. Met so many brilliant minds.",
     "post_image": null,
     "comments": ["Networking is key.", "Looks like it was a great event."],
@@ -96,10 +80,8 @@
     "title": "Tech Conference Highlights"
   },
   {
-    "id": 9,
     "profile_image": "https://example.com/standard-profile.png",
     "name": "Ivy Irving",
-    "date_created": "2024-06-07 14:00:45",
     "post_text": "Planting some new flowers in the garden. Can't wait to see them bloom!",
     "post_image": null,
     "comments": ["Gardening is so rewarding.", "What flowers did you plant?"],
@@ -108,10 +90,8 @@
     "title": "New Garden Flowers"
   },
   {
-    "id": 10,
     "profile_image": "https://example.com/profile9.png",
     "name": "Jack Johnson",
-    "date_created": "2024-06-07 14:45:30",
     "post_text": "Here's a shot from my recent photography project. Capturing the essence of the city.",
     "post_image": "https://example.com/city_photography.png",
     "comments": ["Stunning capture!", "You have a great eye for details."],
@@ -120,8 +100,6 @@
     "title": "City Photography Project"
   },
   {
-    "id": 11,
-    "date_created": "2024-06-07 12:07:32",
     "profile_image": "https://example.com/standard-profile.png",
     "name": "Cathy Clark",
     "post_text": "Reading this amazing book on space exploration. Highly recommend it to all space enthusiasts!",
@@ -132,8 +110,6 @@
     "title": "Test 3!"
   },
   {
-    "id": 12,
-    "date_created": "2024-06-07 12:17:47",
     "comments": ["Adding this to my reading list.", "Sounds interesting!"],
     "likes": 78,
     "profile_image": "https://example.com/standard-profile.png",
@@ -144,8 +120,6 @@
     "title": "Test 4!"
   },
   {
-    "id": 13,
-    "date_created": "2024-06-07 12:18:12",
     "comments": [],
     "likes": 0,
     "profile_image": "https://example.com/standard-profile.png",
